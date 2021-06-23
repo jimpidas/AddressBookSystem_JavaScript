@@ -129,3 +129,56 @@ class AddressBookJs{
  contactDetailsArray.splice(index, 1);
  console.log("contacts after being deleted");
  Display();
+
+ //UC6 find no of contacts
+ let totalContacts=0;
+function getCount(contactDetailsArray)
+{
+  if (contactDetailsArray != null)
+      totalContacts++;
+    return totalContacts;
+}
+contactDetailsArray.reduce(getCount,1);
+console.log("Total number of contacts in contactdetails array : " + totalContacts);
+
+//UC7 check for duplicate value
+    let personContact = new AddressBookJs('Swaraj', 'Bennete', 'Vashi', 'Mumbai', 'Maharastra', '411091', '91 9111111111', 'swaraj@gmail.com');
+    if(contactDetailsArray.some(e => e._firstname == "Swaraj"))
+    console.log("Contact already Exists!");
+    else
+    {
+    contactDetailsArray.push(personContact);
+    console.log("Contact added succsefully");
+    }
+    console.log("Array: ",contactDetailsArray);
+
+
+    //UC8 finding contacts by city
+    let findByCity = contactDetailsArray.filter((e) => e._city == 'Namrup');
+    console.log("Contacts by city: ",findByCity);
+    //finding contacts by state
+    let findByState = contactDetailsArray.filter((e) => e._state == 'Karnataka');
+    console.log("Contacts by state: ",findByState);	
+
+    //UC-9 view contact name by city and state
+    console.log(contactDetailsArray.filter(contact => contact._city == "Namrup")
+                              .map(contact => contact.firstName));
+                        
+    console.log(contactDetailsArray.filter(contact => contact._state == "Karnataka")
+                               .map(contact => contact._firstName));
+
+    //UC10-Get contact count by city and state
+    console.log(contactDetailsArray.filter(contact => contact.city == "Namrup")
+                          .reduce((count, contact) => contact.firstName ? ++count : count,0));
+    //count by state
+    console.log(contactDetailsArray.filter(contact => contact.state == "Karnataka")
+                              .reduce((count, contact) => contact.firstName ? ++count : count, 0));
+//UC11-Sorting entries alphabetically
+console.log(contactDetailsArray.sort((a, b) => a.firstName.localeCompare(b.firstName)));
+//UC12-Sorting contacts by city state and zip
+console.log("Contact After sorting by city");
+console.log(contactDetailsArray.sort((a, b) => a.city.localeCompare(b.city)))
+console.log("Contact After sorting by state");
+console.log(contactDetailsArray.sort((a, b) => a.state.localeCompare(b.state)));
+console.log("Contact After sorting by zip");
+console.log(contactDetailsArray.sort((a, b) => a.zip.localeCompare(b.zip)));
